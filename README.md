@@ -10,7 +10,7 @@ First we need to install Terraform.  Instructions on that are [here](https://www
 
 You should see something like:
 
-![](./images/1%20-%20git%20terraform.png)
+![](./images/1%20-%20terraform.png)
 
 # Install the OCI Provider
 
