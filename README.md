@@ -33,7 +33,7 @@ Create a key for OCI API access by following the instructions [here](https://doc
 Create an SSH keypair for connecting to VM instances by follow [these instructions](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/creatingkeys.htm).
 
 # Setup Environment Variables
-Now, update the `env-vars` file.  When you've set all the variables, source the file with the command:
+Now, update the `env-vars` file with the keys you created in the last step.  When you've set all the variables, source the file with the command:
 
     source env-vars
 
