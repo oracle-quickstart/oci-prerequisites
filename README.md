@@ -28,9 +28,7 @@ That gave this output:
 ![](./images/2%20-%20provider.png)
 
 ## Setup Keys
-Create an SSH keypair for connecting to VM instances by follow [these instructions](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/creatingkeys.htm).
-
-You really just need to do this:
+Create an SSH keypair for connecting to VM instances by follow [these instructions](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/creatingkeys.htm).  You really just need to do this:
 
     ssh-keygen -t rsa -N "" -b 2048 -f ~/.ssh/oci
 
@@ -41,18 +39,22 @@ Now, create a key for OCI API access by following the instructions [here](https:
     openssl rsa -pubout -in ~/.oci/oci_api_key.pem -out ~/.oci/oci_api_key_public.pem
     cat ~/.oci/oci_api_key_public.pem | pbcopy
 
-When complete, open a web browser to the console [here](https://console.us-phoenix-1.oraclecloud.com/a/identity/users).  Then select your user and click "Add Public Key."
+When complete, open a web browser to the console [here](https://console.us-phoenix-1.oraclecloud.com/a/identity/users).  Then select your user, click "Add Public Key" and paste it into the dialog.
 
 ![](./images/3%20-%20console.png)
 
 ## Setup Environment Variables
 Now, let's take a look at the `env-vars` file.
 
-![](./images/2%20-%20provider.png)
+![](./images/4%20-%20env-vars.png)
 
-It pulls values from the keys you created in the earlier steps.  You'll need to update...
+The script pulls values from the keys you created in the earlier steps.  You'll need to update three fields with values you can find in the console:
 
- update the `env-vars` file.  It's going tr with the keys you created in the last step.  When you've set all the variables, source the file with the command:
+* TF_VAR_tenancy_ocid
+* TF_VAR_user_ocid
+* TF_VAR_compartment_ocid
+
+When you've set all the variables, source the file with the command:
 
     source env-vars
 
