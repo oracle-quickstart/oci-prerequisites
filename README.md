@@ -16,11 +16,12 @@ You should see something like:
 
 Next you're going to need to install the [Terraform Provider for Oracle Cloud Infrastructure](https://github.com/oracle/terraform-provider-baremetal/blob/master/README.md).  I'm on a Mac, so I downloaded a copy of the binary, `darwin_amd64.tar.gz` from [here](https://github.com/oracle/terraform-provider-oci/releases) and put it in a new plugins directory.  To do that, I ran the following commands:
 
-    tar -xvf darwin_amd64.tar.gz
     cd ~/.terraform.d
     mkdir plugins
     cd plugins
-    mv ~/Downloads/darwin_amd64/terraform-provider-oci_v2.2.0 ./
+    curl -L https://github.com/oracle/terraform-provider-oci/releases/download/v2.2.1/darwin_amd64.tar.gz > darwin_amd64.tar.gz
+    tar -xvf darwin_amd64.tar.gz
+    rm darwin_amd64.tar.gz
     ls
 
 That gave this output:
