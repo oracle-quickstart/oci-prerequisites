@@ -34,9 +34,7 @@ You really just need to do this:
 
     ssh-keygen -t rsa -N "" -b 2048 -f ~/.ssh/oci
 
-Now, create a key for OCI API access by following the instructions [here](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm).
-
-Basically, you need to run these commands:
+Now, create a key for OCI API access by following the instructions [here](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm).  Basically, you need to run these commands:
 
     mkdir ~/.oci
     openssl genrsa -out ~/.oci/oci_api_key.pem 2048
