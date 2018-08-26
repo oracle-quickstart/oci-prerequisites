@@ -52,14 +52,11 @@ Now, let's take a look at the `env-vars` file.
 
 ![](./images/4%20-%20env-vars.png)
 
-The script pulls values from the keys you created in the earlier steps.  You'll need to update three fields with values you can find in the [console](https://console.us-phoenix-1.oraclecloud.com/):
+The script pulls values from the keys you created in the earlier steps.  You'll need to update two fields with values you can find in the [console](https://console.us-phoenix-1.oraclecloud.com/):
 
 * TF_VAR_tenancy_ocid
 * TF_VAR_user_ocid
-* TF_VAR_compartment_ocid
 
-When you've set all the variables, source the file with the command:
-
-    source env-vars
+When you've set all the variables, you can source the file with the command `source env-vars` or you could stick the contents of the file in `~/.bash_profile`
 
 With that, you're all ready to start running Terraform commands!
