@@ -48,7 +48,7 @@ When complete, open a web browser to the console [here](https://console.us-phoen
 ![](./images/3%20-%20console.png)
 
 ## Setup Environment Variables
-Now, let's take a look at the `env-vars` file.
+Now, let's take a look at the [env-vars](env-vars) file.
 
 ![](./images/4%20-%20env-vars.png)
 
