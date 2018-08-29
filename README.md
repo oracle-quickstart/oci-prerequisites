@@ -48,7 +48,7 @@ When complete, open a web browser to the console [here](https://console.us-phoen
 ![](./images/3%20-%20console.png)
 
 ## Setup Environment Variables
-Now, let's take a look at the [env-vars](env-vars) file.
+Now, let's take a look at the [env-vars.sh](env-vars.sh) file.
 
 ![](./images/4%20-%20env-vars.png)
 
@@ -57,6 +57,6 @@ The script pulls values from the keys you created in the earlier steps.  You'll 
 * TF_VAR_tenancy_ocid
 * TF_VAR_user_ocid
 
-When you've set all the variables, you can source the file with the command `source env-vars` or you could stick the contents of the file in `~/.bash_profile`
+When you've set all the variables, you can source the file with the command `source env-vars.sh` or you could stick the contents of the file in `~/.bash_profile`
 
 With that, you're all ready to start running Terraform commands!
