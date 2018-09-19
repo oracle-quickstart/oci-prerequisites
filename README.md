@@ -7,7 +7,9 @@ If you don't have an OCI account, you can sign up for a free trial [here](https:
 
 ## Install Terraform
 
-Now, we need to install Terraform.  Instructions on that are [here](https://www.terraform.io/intro/getting-started/install.html).  You can test that the install was successful by running the command:
+Now, we need to install Terraform.  Instructions on that are [here](https://www.terraform.io/intro/getting-started/install.html).  I'm on a Mac, so I just put the binary in `/usr/local/bin` to make sure it was in my path.
+
+You can test that the install was successful by running the command:
 
     terraform
 
@@ -15,21 +17,7 @@ You should see something like:
 
 ![](./images/1%20-%20terraform.png)
 
-## Install the OCI Provider
-
-Next you're going to need to install the [Terraform Provider for Oracle Cloud Infrastructure](https://github.com/oracle/terraform-provider-baremetal/blob/master/README.md).  I'm on a Mac, so I downloaded a copy of the binary, `darwin_amd64.tar.gz` from [here](https://github.com/oracle/terraform-provider-oci/releases) and put it in a new plugins directory.  To do that, I ran the following commands:
-
-    cd ~/.terraform.d
-    mkdir plugins
-    cd plugins
-    curl -L https://github.com/oracle/terraform-provider-oci/releases/download/v2.2.1/darwin_amd64.tar.gz > darwin_amd64.tar.gz
-    tar -xvf darwin_amd64.tar.gz
-    rm darwin_amd64.tar.gz
-    ls
-
-That gave this output:
-
-![](./images/2%20-%20provider.png)
+In the past you needed to manually install the OCI Terraform Provider.  However, OCI is now integrated into the Terraform executable, so that's no longer necessary!
 
 ## Setup Keys
 Create an SSH keypair for connecting to VM instances by follow [these instructions](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/creatingkeys.htm).  You really just need to do this:
