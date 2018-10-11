@@ -55,11 +55,11 @@ When you've set all the variables, you can source the file with the command `sou
 With that, you're all ready to start running Terraform commands!
 
 ## Create SSH Config
-This is an optional step and should probably be improved by specifying OCI IP blocks.  With the current setup you can SSH to a machine with the command:
+With the current setup you can SSH to a machine with the command:
 
     ssh -i ~/.ssh/oci <username>@<ip_address>
 
-If we add a ssh_config file, we can simplify that a bit.  Run:
+If we add a ssh_config file, we can simplify that a bit.  To create that file, run the command:
 
     echo "Host *
       IdentityFile ~/.ssh/oci
