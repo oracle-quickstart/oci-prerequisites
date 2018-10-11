@@ -24,11 +24,11 @@ You should see something like:
 In the past you needed to manually install the OCI Terraform Provider.  However, OCI is now integrated into the Terraform executable, so that's no longer necessary!
 
 ## Setup Keys
-Create an SSH keypair for connecting to VM instances by follow [these instructions](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/creatingkeys.htm).  You really just need to do this:
+Create an SSH keypair for connecting to VM instances by follow [these instructions](https://docs.cloud.oracle.com/iaas/Content/GSG/Tasks/creatingkeys.htm).  You really just need to do this:
 
     ssh-keygen -t rsa -N "" -b 2048 -f ~/.ssh/oci
 
-Now, create a key for OCI API access by following the instructions [here](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm).  Basically, you need to run these commands:
+Now, create a key for OCI API access by following the instructions [here](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/apisigningkey.htm).  Basically, you need to run these commands:
 
     mkdir ~/.oci
     openssl genrsa -out ~/.oci/oci_api_key.pem 2048
@@ -53,3 +53,18 @@ The script pulls values from the keys you created in the earlier steps.  You'll 
 When you've set all the variables, you can source the file with the command `source env-vars.sh` or you could stick the contents of the file in `~/.bash_profile`
 
 With that, you're all ready to start running Terraform commands!
+
+## Create SSH Config
+This is an optional step and should probably be improved by specifying OCI IP blocks.  With the current setup you can SSH to a machine with the command:
+
+    ssh -i ~/.ssh/oci <username>@<ip_address>
+
+If we add a ssh_config file, we can simplify that a bit.  Run:
+
+    echo "Host *
+      IdentityFile ~/.ssh/oci
+      User opc" > ~/.ssh/config
+
+Now you can SSH to your OEL machines on OCI with the command:
+
+    ssh <ip_address>
