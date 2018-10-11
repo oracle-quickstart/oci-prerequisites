@@ -7,7 +7,11 @@ If you don't have an OCI account, you can sign up for a free trial [here](https:
 
 ## Install Terraform
 
-Now, we need to install Terraform.  Instructions on that are [here](https://www.terraform.io/intro/getting-started/install.html).  I'm on a Mac, so I just put the binary in `/usr/local/bin` to make sure it was in my path.
+Now, we need to install Terraform.  Instructions on that are [here](https://www.terraform.io/intro/getting-started/install.html).  Of course, I'm on a Mac, and like to do things the easy way, so I installed [brew](https://brew.sh/) and then used it to install Terraform with the commands:
+
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    sudo chown -R $(whoami) /usr/local/bin /usr/local/lib
+    brew install terraform
 
 You can test that the install was successful by running the command:
 
@@ -29,6 +33,7 @@ Now, create a key for OCI API access by following the instructions [here](https:
     mkdir ~/.oci
     openssl genrsa -out ~/.oci/oci_api_key.pem 2048
     openssl rsa -pubout -in ~/.oci/oci_api_key.pem -out ~/.oci/oci_api_key_public.pem
+    openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem | openssl md5 -c > ~/.oci/oci_api_key.fingerprint
     cat ~/.oci/oci_api_key_public.pem | pbcopy
 
 When complete, open a web browser to the console [here](https://console.us-phoenix-1.oraclecloud.com/a/identity/users).  Then select your user, click "Add Public Key" and paste it into the dialog.
