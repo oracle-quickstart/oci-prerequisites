@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export TF_VAR_compartment_ocid="<compartment OCID>"
+
 # Required for the OCI Provider
 export TF_VAR_tenancy_ocid="<tenancy OCID>"
 export TF_VAR_user_ocid="<user OCID>"

@@ -45,8 +45,9 @@ Now, let's take a look at the [env-vars.sh](env-vars.sh) file.
 
 ![](./images/4%20-%20env-vars.png)
 
-The script pulls values from the keys you created in the earlier steps.  You'll need to update two fields with values you can find in the [console](https://console.us-phoenix-1.oraclecloud.com/):
+The script pulls values from the keys you created in the earlier steps.  You'll need to update three fields with values you can find in the [console](https://console.us-phoenix-1.oraclecloud.com/):
 
+* TF_VAR_compartment_ocid
 * TF_VAR_tenancy_ocid
 * TF_VAR_user_ocid
 
