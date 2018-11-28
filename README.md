@@ -36,25 +36,22 @@ sudo chown root:root /usr/local/bin/terraform
 
 </details>
 
-<details><summary>Windows (WSL)</summary>
+<details><summary>Windows</summary>
 
-The easiest way to install terraform and run other setup is actually to install Linux. Windows Subsystem for Linux (WSL) is no longer in beta and gives you a complete Linux environment. Complete instructions are [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10), but briefly:
+The easiest way to install terraform and run other setup is actually to install [Git for Windows](https://gitforwindows.org/).
+This will install `Git bash`, a terminal application that gives you a bash prompt.
 
-* Start PowerShell as Administrator and run: `Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux` _**Note, this requires a reboot.**_
-* Open the Windows Store and install your desired distro, e.g. Ubuntu 18.04 LTS. This download is approximately 200MB.
-* Launch WSL when the download finishes, and when prompted enter a user/password for the newly created Linux user.
-* _**Note**_, all subsequent commands are run in the WSL terminal.
-
-Copy the commands below and right click to paste them into the WSL terminal. _**Note**_, this will prompt for the password you just entered.
+Copy the commands below and paste them into the `Git bash` terminal (Shift+Insert, or right click -> Paste).
 
 ```
-sudo apt-get update
-sudo apt-get install -y unzip
 VERSION='0.11.10' # latest, stable version
-wget "https://releases.hashicorp.com/terraform/"$VERSION"/terraform_"$VERSION"_linux_amd64.zip"
-unzip terraform_0.11.10_linux_amd64.zip
-sudo mv terraform /usr/local/bin/
-sudo chown root:root /usr/local/bin/terraform
+TFFILE="terraform_"$VERSION"_windows_amd64.zip"
+curl \
+ -o $TFFILE \
+ --retry 5 \
+ "https://releases.hashicorp.com/terraform/"$VERSION"/terraform_"$VERSION"_windows_amd64.zip"
+unzip $TFFILE
+mv terraform.exe ~/bin/
 ```
 
 </details>
@@ -63,6 +60,8 @@ sudo chown root:root /usr/local/bin/terraform
 Regardless of the OS, you can test that the install was successful by running the command:
 
     terraform
+
+Note, either `terraform` or `terraform.exe` work in Git bash on Windows.
 
 You should see something like:
 
@@ -81,12 +80,11 @@ Now, create a key for OCI API access by following the instructions [here](https:
     openssl genrsa -out ~/.oci/oci_api_key.pem 2048
     openssl rsa -pubout -in ~/.oci/oci_api_key.pem -out ~/.oci/oci_api_key_public.pem
 
-The output of `openssl` can be slightly different between OS's when generating the fingerprint of the public key. Run one of the following to make a correctly formatted fingerprint and to copy the public key into the OCI console.
+The output of `openssl` can be slightly different between OS's when generating the fingerprint of the public key. Run one of the following to make a correctly formatted fingerprint and to copy the public key to paste into the OCI console.
 
 <details><summary>macOS</summary>
 
 ```
-
 openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem | openssl md5 -c > ~/.oci/oci_api_key.fingerprint
 cat ~/.oci/oci_api_key_public.pem | pbcopy
 ```
@@ -101,13 +99,13 @@ cat ~/.oci/oci_api_key_public.pem | xclip -selection clipboard
 ```
 </details>
 
-<details><summary>Windows (WSL)</summary>
-Opening files or copy/pasting between Windows and WSL can introduce carraige returns or whitespace. The following will copy the public key to your Windows desktop and open it with Notepad to copy.
+<details><summary>Windows</summary>
+
+The `cat` command below will print the content of the public key, select all text outputed including `-----BEGIN PUBLIC KEY-----` and `-----END PUBLIC KEY-----` and copy (Ctrl+Insert, or right click -> Copy).
 
 ```
 openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem 2>/dev/null | openssl md5 -c | awk '{print $2}' > ~/.oci/oci_api_key.fingerprint
-NAME=$(cmd.exe /c "echo %USERNAME%" | tr -d '\r')
-cp ~/.oci/oci_api_key_public.pem /mnt/c/Users/$NAME/Desktop
+cat ~/.oci/oci_api_key_public.pem
 ```
 </details>
 
@@ -118,7 +116,7 @@ Open a web browser to the console [here](https://console.us-phoenix-1.oracleclou
 ## Setup Environment Variables
 Now, let's take a look at the [env-vars.sh](env-vars.sh) file. You don't have to clone this repo to get the file, you can just run:
 ```
-wget https://raw.githubusercontent.com/cloud-partners/oci-prerequisites/master/env-vars.sh
+curl -o ~/env-vars.sh https://raw.githubusercontent.com/cloud-partners/oci-prerequisites/master/env-vars.sh
 ```
 
 ![](./images/4%20-%20env-vars.png)
