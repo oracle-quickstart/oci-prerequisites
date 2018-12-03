@@ -38,21 +38,18 @@ sudo chown root:root /usr/local/bin/terraform
 
 <details><summary>Windows</summary>
 
-The easiest way to install terraform and run other setup is actually to install [Git for Windows](https://gitforwindows.org/).
-This will install `Git bash`, a terminal application that gives you a bash prompt.
+The easiest way to install Terraform and run other setup is to install [Chocolatey](https://chocolatey.org/), which is a package manager for windows.
+You can then use Chocolatey to install Terraform and Git for Windows (which includes other needed tools).
 
-Copy the commands below and paste them into the `Git bash` terminal (Shift+Insert, or right click -> Paste).
+Start powershell **as Administrator** and run the commands below. `choco` will prompt to install, press `Y` and enter.
 
 ```
-VERSION='0.11.10' # latest, stable version
-TFFILE="terraform_"$VERSION"_windows_amd64.zip"
-curl \
- -o $TFFILE \
- --retry 5 \
- "https://releases.hashicorp.com/terraform/"$VERSION"/terraform_"$VERSION"_windows_amd64.zip"
-unzip $TFFILE
-mv terraform.exe ~/bin/
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+choco install terraform
+choco install git.install --params "/GitAndUnixToolsOnPath /NoAutoCrlf"
 ```
+
+After this completes close this powershell. These commands have installed Terraform, git, and other utilities we'll use later.
 
 </details>
 
@@ -61,24 +58,41 @@ Regardless of the OS, you can test that the install was successful by running th
 
     terraform
 
-Note, either `terraform` or `terraform.exe` work in Git bash on Windows.
-
 You should see something like:
 
 ![](./images/1%20-%20terraform.png)
 
 In the past you needed to manually install the OCI Terraform Provider.  However, OCI is now integrated into the Terraform executable, so that's no longer necessary!
 
+
 ## Setup Keys
-Create an SSH keypair for connecting to VM instances by follow [these instructions](https://docs.cloud.oracle.com/iaas/Content/GSG/Tasks/creatingkeys.htm).  You really just need to do this:
+We need to create an SSH keypair for connecting to VM instances by following [these instructions](https://docs.cloud.oracle.com/iaas/Content/GSG/Tasks/creatingkeys.htm).  Then create a key for OCI API access by following the instructions [here](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/apisigningkey.htm).
 
-    ssh-keygen -t rsa -N "" -b 2048 -f ~/.ssh/oci
+You really just need to run the commands below in a terminal or regular powershell (**not** as Administrator):
 
-Now, create a key for OCI API access by following the instructions [here](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/apisigningkey.htm).  Basically, you need to run these commands:
+<details><summary>macOS or Linux</summary>
 
-    mkdir ~/.oci
-    openssl genrsa -out ~/.oci/oci_api_key.pem 2048
-    openssl rsa -pubout -in ~/.oci/oci_api_key.pem -out ~/.oci/oci_api_key_public.pem
+```
+ssh-keygen -t rsa -N "" -b 2048 -f ~/.ssh/oci
+mkdir ~/.oci
+openssl genrsa -out ~/.oci/oci_api_key.pem 2048
+openssl rsa -pubout -in ~/.oci/oci_api_key.pem -out ~/.oci/oci_api_key_public.pem
+```
+
+</details>
+
+<details><summary>Windows</summary>
+
+```
+cd ~\
+md .ssh
+ssh-keygen --% -t rsa -N "" -b 2048 -f .\.ssh\oci
+md .oci
+openssl genrsa -out .\.oci\oci_api_key.pem 2048
+openssl rsa -pubout -in .\.oci\oci_api_key.pem -out .\.oci\oci_api_key_public.pem
+```
+
+</details>
 
 The output of `openssl` can be slightly different between OS's when generating the fingerprint of the public key. Run one of the following to make a correctly formatted fingerprint and to copy the public key to paste into the OCI console.
 
@@ -92,20 +106,20 @@ cat ~/.oci/oci_api_key_public.pem | pbcopy
 
 <details><summary>Linux</summary>
 
-
 ```
-openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem 2>/dev/null | openssl md5 -c | awk '{print $2}' > ~/.oci/oci_api_key.fingerprint
+openssl rsa -pubout -outform DER -in .oci/oci_api_key.pem | openssl md5 -c | awk '{print $2}' > ~\.oci\oci_api_key.fingerprint
 cat ~/.oci/oci_api_key_public.pem | xclip -selection clipboard
 ```
 </details>
 
 <details><summary>Windows</summary>
 
-The `cat` command below will print the content of the public key, select all text outputed including `-----BEGIN PUBLIC KEY-----` and `-----END PUBLIC KEY-----` and copy (Ctrl+Insert, or right click -> Copy).
-
 ```
-openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem 2>/dev/null | openssl md5 -c | awk '{print $2}' > ~/.oci/oci_api_key.fingerprint
-cat ~/.oci/oci_api_key_public.pem
+cd ~\
+openssl rsa -pubout -outform DER -in .oci\oci_api_key.pem -out key.tmp
+openssl md5 -c key.tmp | awk '{print $2}' | Out-File -Encoding ASCII -NoNewline .\.oci\oci_api_key.fingerprint
+del key.tmp
+Get-Content (Resolve-Path ".\.oci\oci_api_key_public.pem") -Raw -Encoding ASCII | clip.exe
 ```
 </details>
 
@@ -114,9 +128,12 @@ Open a web browser to the console [here](https://console.us-phoenix-1.oracleclou
 ![](./images/3%20-%20console.png)
 
 ## Setup Environment Variables
-Now, let's take a look at the [env-vars.sh](env-vars.sh) file. You don't have to clone this repo to get the file, you can just run:
+Now, let's take a look at the [env-vars.sh](env-vars.sh) file for macOS and [env-vars.ps1](env-vars.ps1) for Windows. You don't have to clone this repo to get the file, you can just run either:
 ```
 curl -o ~/env-vars.sh https://raw.githubusercontent.com/cloud-partners/oci-prerequisites/master/env-vars.sh
+# or
+curl -o ~/env-vars.ps1 https://raw.githubusercontent.com/cloud-partners/oci-prerequisites/master/env-vars.ps1
+
 ```
 
 ![](./images/4%20-%20env-vars.png)
@@ -127,7 +144,9 @@ The script pulls values from the keys you created in the earlier steps.  You'll 
 * TF_VAR_tenancy_ocid
 * TF_VAR_user_ocid
 
-When you've set all the variables, you can source the file with the command `source env-vars.sh` or you could stick the contents of the file in `~/.bash_profile`
+When you've set all the variables, on macOs/Linux you can source the file with the command `source ~/env-vars.sh` or you could stick the contents of the file in `~/.bash_profile`
+
+On Windows run `Set-ExecutionPolicy Bypass -Scope Process -Force; ~\env-vars.ps1`. Note, for every new powershell terminal you open these environment variables need to be created by running the above for Terraform commands to work.
 
 With that, you're all ready to start running Terraform commands!
 
