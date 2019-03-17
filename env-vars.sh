@@ -1,9 +1,8 @@
 #!/bin/sh
 
-export TF_VAR_compartment_ocid="<compartment OCID>"
-
 # Required for the OCI Provider
 export TF_VAR_tenancy_ocid="<tenancy OCID>"
+export TF_VAR_compartment_ocid="<compartment OCID>"
 export TF_VAR_user_ocid="<user OCID>"
 export TF_VAR_fingerprint=$(cat ~/.oci/oci_api_key.fingerprint)
 export TF_VAR_private_key_path="~/.oci/oci_api_key.pem"
