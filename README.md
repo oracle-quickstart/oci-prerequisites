@@ -26,7 +26,6 @@ brew install terraform
 For installing on Linux, just run:
 
 ```
-sudo apt-get install -y unzip
 VERSION='0.11.10' # latest, stable version
 wget "https://releases.hashicorp.com/terraform/"$VERSION"/terraform_"$VERSION"_linux_amd64.zip"
 unzip terraform_0.11.10_linux_amd64.zip
@@ -107,7 +106,7 @@ cat ~/.oci/oci_api_key_public.pem | pbcopy
 <details><summary>Linux</summary>
 
 ```
-openssl rsa -pubout -outform DER -in .oci/oci_api_key.pem | openssl md5 -c | awk '{print $2}' > ~\.oci\oci_api_key.fingerprint
+openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem | openssl md5 -c | awk '{print $2}' > ~/.oci/oci_api_key.fingerprint
 cat ~/.oci/oci_api_key_public.pem | xclip -selection clipboard
 ```
 </details>
