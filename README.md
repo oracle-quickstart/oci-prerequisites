@@ -1,4 +1,4 @@
-# oci-prerequisites
+# oci-quickstart-prerequisites
 
 This README describes the steps to setup your environment so it can run Terraform modules on OCI.
 
