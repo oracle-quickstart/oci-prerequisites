@@ -1,6 +1,6 @@
 # oci-quickstart-prerequisites
 
-This README describes the steps to setup your environment so it can run Terraform modules on OCI.
+This README describes the steps to setup your environment so it can run Oracle Cloud Infrastructure Quick Start examples.
 
 ## Create an OCI Account
 If you don't have an OCI account, you can sign up for a free trial [here](https://cloud.oracle.com/en_US/tryit).  The free trial only has the Ashburn region enabled by default.  Depending on what Terraform modules you're going to deploy, you may need to enable other regions.  Similarly, the default quotas are pretty low, so you might need to request increases.
