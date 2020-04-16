@@ -143,7 +143,24 @@ The script pulls values from the keys you created in the earlier steps.  You'll 
 * TF_VAR_tenancy_ocid
 * TF_VAR_user_ocid
 
-When you've set all the variables, on macOs/Linux you can source the file with the command `source ~/env-vars.sh` or you could stick the contents of the file in `~/.bash_profile`
+When you've set all the variables, on macOs/Linux you can source the file with the command `source ~/env-vars.sh` or you could stick the contents of the file in `~/.bash_profile`:
+```
+source ~/env-vars.sh
+```
+
+Use the command `env | grep TF` to see the variables set by the environment file. It should look something like the following:
+```
+env | grep TF
+TF_VAR_tenancy_ocid=ocid1.tenancy....zhi3q
+TF_VAR_compartment_ocid=ocid1.compartment....e7e5q
+TF_VAR_region=us-ashburn-1
+TF_VAR_ssh_private_key=-----BEGIN OPENSSH PRIVATE KEY-----
+TF_VAR_fingerprint=50:d0:7d:f7:0e:05:cd:87:3b:2a:cb:50:b1:17:90:e9
+TF_VAR_private_key_path=~/.oci/oci_api_key.pem
+TF_VAR_ssh_public_key=ssh-rsa AAAAB....kQzpF user@hostname
+TF_VAR_user_ocid=ocid1.user....ewc5a
+```
+
 
 On Windows run `Set-ExecutionPolicy Bypass -Scope Process -Force; ~\env-vars.ps1`. Note, for every new powershell terminal you open these environment variables need to be created by running the above for Terraform commands to work.
 
