@@ -171,11 +171,12 @@ With the current setup you can SSH to a machine with the command:
 
     ssh -i ~/.ssh/oci <username>@<ip_address>
 
-If we add a ssh_config file, we can simplify that a bit.  To create that file, run the command:
+If desired, adding some settings to our ssh_config file we can simplify that a bit.  Run the command below to append to your config:
 
-    echo "Host *
-      IdentityFile ~/.ssh/oci
-      User opc" > ~/.ssh/config
+    echo -e "\n#OCI setup
+    Host *
+     IdentityFile ~/.ssh/oci
+     User opc" >> ~/.ssh/config
 
 Now you can SSH to your OEL machines on OCI with the command:
 
