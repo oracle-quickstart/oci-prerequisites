@@ -43,7 +43,8 @@ You can then use Chocolatey to install Terraform and Git for Windows (which incl
 Start powershell **as Administrator** and run the commands below. `choco` will prompt to install, press `Y` and enter.
 
 ```
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
 choco install terraform
 choco install git.install --params "/GitAndUnixToolsOnPath /NoAutoCrlf"
 ```
