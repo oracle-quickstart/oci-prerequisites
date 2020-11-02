@@ -3,7 +3,24 @@
 This README describes the steps to setup your environment so it can run Oracle Cloud Infrastructure (OCI) Quick Start examples.
 
 ## Create an OCI Account
-If you don't have an OCI account, you can sign up for a free trial [here](https://cloud.oracle.com/en_US/tryit).  The free trial only has the Ashburn region enabled by default.  Depending on what Terraform modules you're going to deploy, you may need to enable other regions.  Similarly, the default quotas are pretty low, so you might need to request increases.
+
+If you don't have an OCI account, you can sign up for a free trial [here](https://cloud.oracle.com/en_US/tryit).
+Depending on what Terraform modules you're going to deploy, you may need to [subscribe to other regions](https://docs.cloud.oracle.com/en-us/iaas/Content/Identity/Tasks/managingregions.htm) beyond your home region.  Similarly, the default quotas are pretty low, so you might need to submit a [service limit](https://docs.cloud.oracle.com/en-us/iaas/Content/General/Concepts/servicelimits.htm) increase.
+
+## Oracle Resource Manager
+
+[Oracle Resource Manager](https://docs.cloud.oracle.com/en-us/iaas/Content/ResourceManager/Concepts/resourcemanager.htm)
+is OCI's terraform service inside the OCI console. Any Quick Start that has a
+ `Deploy to Oracle Cloud` button like the one below can deploy directly to ORM without any
+ setup of your local environment.
+
+![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)
+
+You will need an ssh key for almost all Quick Starts. If you don't have one already
+please follow [these instructions](https://docs.cloud.oracle.com/iaas/Content/GSG/Tasks/creatingkeys.htm) or run the `ssh-keygen` commands in the [Setup Keys](#setup-keys) section below.
+
+To launch a Quick Start from a local copy you've cloned, you need to complete the
+steps below.
 
 ## Install Terraform
 
