@@ -147,9 +147,9 @@ Open a web browser to the console [here](https://console.us-phoenix-1.oracleclou
 ## Setup Environment Variables
 Now, let's take a look at the [env-vars.sh](env-vars.sh) file for macOS and [env-vars.ps1](env-vars.ps1) for Windows. You don't have to clone this repo to get the file, you can just run either:
 ```
-curl -o ~/env-vars.sh https://raw.githubusercontent.com/cloud-partners/oci-prerequisites/master/env-vars.sh
+curl -o ~/env-vars.sh https://raw.githubusercontent.com/oracle-quickstart/oci-prerequisites/master/env-vars.sh
 # or
-curl -o ~/env-vars.ps1 https://raw.githubusercontent.com/cloud-partners/oci-prerequisites/master/env-vars.ps1
+curl -o ~/env-vars.ps1 https://raw.githubusercontent.com/oracle-quickstart/oci-prerequisites/master/env-vars.ps1
 
 ```
 
